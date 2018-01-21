@@ -3,21 +3,22 @@
 
 class Television (object):
     """Television emulation class"""
-    def __init__(self, name = 'Television',chanel = 1, vol = 20):
+    def __init__(self, name = 'Television',chanel = 1, vol = 10):
         self.name =name
         self.chanel = chanel
         self.vol = vol
 
     def switch_volume (self,vol):
+        print("Current level: ", self.vol, " \n")
         vol_choise = input("Press \"+\" or \"-\" for audio adjustment! ")
         if vol_choise == "+":
-            vol += 2
-            print("Volume increased to ",vol,"!")
+            self.vol += 2
         elif vol_choise == "-":
-            vol -= 2
-            print("Volume down to ",vol,"!")
+            self.vol -= 2
         else:
             print("Incorrect type!")
+        self.volume_controller(vol)
+        print("Volume now: ", self.vol, " \n")
         return vol
 
     def print_program (self, chanel):
@@ -41,6 +42,13 @@ class Television (object):
         print ("You watching ", program, " chanel!")
         return program
 
+    def volume_controller(self,vol):
+        if self.vol < 0:
+            self.vol = 0
+        elif self.vol > 100:
+            self.vol = 100
+        return vol
+
 def main():
     print("Goog afternoon!\n")
     tv = Television()
@@ -60,12 +68,7 @@ def main():
             tv.print_program(chanel)
         elif choice == "2":
             vol = tv.vol
-            print("Current level: ", vol, " \n")
             tv.switch_volume(vol)
-            if vol < 0:
-                tv.vol = 0
-            elif vol > 100:
-                tv.vol = 100
         else:
             print("Incorrect type!!")
 

@@ -1,5 +1,7 @@
 # Моя зверюшка
 # Виртуальный питомец. о котором пользователь может заботиться
+
+
 class Critter(object):
     """Виртуальный питомец"""
     def __init__(self, name, hunger = 0, boredom = 0):
@@ -10,6 +12,10 @@ class Critter(object):
     def __pass_time(self):
         self.hunger += 1
         self.boredom += 1
+
+    def __str__(self):
+        print('Голод = ', self.hunger)
+        print('Скука = ',self.boredom)
 
     @property
     def mood(self):
@@ -44,6 +50,7 @@ class Critter(object):
             self.boredom = 0
         self.__pass_time()
 
+
 def main():
     crit_name = input("Kaк вы назовете свою зверюшку? ")
     crit = Critter(crit_name)
@@ -60,7 +67,7 @@ def main():
         choice = input("Baш выбор: ")
         print()
 # ВЫХОД
-        if choice == "О":
+        if choice == "0":
             print("Дo свидания.")
 # беседа со зверюшкой
         elif choice == "1":
@@ -71,6 +78,9 @@ def main():
 # игра со зверюшкой
         elif choice == "3" :
             crit.play()
+#секретный пункт
+        elif choice == "4":
+            crit.__str__()
 # непонятный пользовательский ввод
         else:
             print( "Извините. в меню нет пункта", choice)

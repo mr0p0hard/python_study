@@ -1,58 +1,52 @@
 # TV
 # Emulation of the TV-chanel
-class Critter (object):
+
+class Television (object):
     """Television emulation class"""
-    def __init__(self, name, chanel = 1, volume = 20):
-        self.name = name
+    def __init__(self, name = 'Television',chanel = 1, vol = 20):
+        self.name =name
         self.chanel = chanel
-        self.volume = volume
-        
-    @switch_chanel.setter
-    def switch_chanel (self):
+        self.vol = vol
+
+    def switch_volume (self,vol):
+        vol_choise = input("Press \"+\" or \"-\" for audio adjustment! ")
+        if vol_choise == "+":
+            vol += 2
+            print("Volume increased to ",vol,"!")
+        elif vol_choise == "-":
+            vol -= 2
+            print("Volume down to ",vol,"!")
+        else:
+            print("Incorrect type!")
+        return vol
+
+    def print_program (self, chanel):
         program = ' '
-        if self.chanel < 0 or self.chanel > 30:
+        if chanel < 0 or chanel > 30:
             print("Incorrect number of chanel!")
-        elif self.chanel == 1:
+        elif chanel == 1:
             program = "news"
-        elif self.chanel == 2:
+        elif chanel == 2:
             program = "music"
-        elif self.chanel == 3:
+        elif chanel == 3:
             program = "fun movie"
-        elif self.chanel == 4:
+        elif chanel == 4:
             program = "films"
-        elif self.chanel == 5:
+        elif chanel == 5:
             program = "international news"
-        elif self.chanel == 6:
+        elif chanel == 6:
             program = "tv-shows"
         else:
             program = "unknown"
         print ("You watching ", program, " chanel!")
-        return self.chanel
-
-    @property
-    def switch_volume (self):
-        vol = self.volume
-        print ("Current level: ", vol, " \n")
-        choise = input("Press \"+\" or \"-\" for audio adjustment! ")
-        if choise == "+":
-            self.volume += 2
-        elif choise == "-":
-            self.volume -= 2
-        else:
-            print("Incorrect type!")
-        if self.volume < 0:
-            self.volume = 0
-        elif self.volume > 100:
-            self.volume = 100
+        return program
 
 def main():
     print("Goog afternoon!\n")
-    tv_chanel = int(input("What chanel you want to watch? "))
-    tv = Critter(tv_chanel)
+    tv = Television()
     choice = None
     while choice !="0":
-        print \
-        ("""
+        print("""
          What would you like to do:
          0 - Turn off
          1 - Switch chanel
@@ -62,9 +56,16 @@ def main():
         if choice == "0":
             print("Good bye!")
         elif choice == "1":
-            tv.switch_chanel()
+            chanel = int(input("Choose your chanel: "))
+            tv.print_program(chanel)
         elif choice == "2":
-            tv.switch_volume()
+            vol = tv.vol
+            print("Current level: ", vol, " \n")
+            tv.switch_volume(vol)
+            if vol < 0:
+                tv.vol = 0
+            elif vol > 100:
+                tv.vol = 100
         else:
             print("Incorrect type!!")
 
